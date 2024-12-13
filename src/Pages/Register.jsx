@@ -7,6 +7,7 @@ const Register = () => {
     const { createUser } = useContext(AuthContext);
     const [ loading, setLoading] = useState(false)
     const [passError, setPassError] = useState('');
+
     const handlRegister = async (e) => {
         e.preventDefault();
         const form = e.target;
@@ -69,9 +70,7 @@ const Register = () => {
                                 <span className="label-text">Password</span>
                             </label>
                             <input type="password" name='password' placeholder="password" className="input input-bordered" required />
-                            <label className="label">
-                                <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
-                            </label>
+                            
                         </div>
                         {passError && <p className='text-sm text-red-500'>{passError}</p>}
                         <div className="form-control mt-6">
