@@ -1,14 +1,49 @@
 import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import AuthContext from '../../context/authcontext/AuthContext';
+import jobsIcon from '../../assets/logo.png'
+import Swal from 'sweetalert2';
 
 const Navbar = () => {
-    const { user } = useContext(AuthContext);
+    const { user, signOutUser } = useContext(AuthContext);
+    const navigate = useNavigate();
     const [isHover, setIsHover] = useState(false);
     const handleMouseEnter = () => setIsHover(true);
     const handleMouseLeave = () => setIsHover(false);
+
+    const handleSignOut = () => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, Log Out!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                signOutUser()
+                    .then(() => {
+                        Swal.fire({
+                            title: "Logged Out!",
+                            text: "You're logged out.",
+                            icon: "success"
+                        });
+                        navigate('/')
+                    })
+                    .catch(error=>{
+                        Swal.fire({
+                            title: "Error!",
+                            text: `${error.message}`,
+                            icon: "error"
+                          });
+                    })
+            }
+        });
+    }
     const links = <>
-        <li><a>Item 1</a></li>
+        <li><NavLink to={'/'}>Home</NavLink></li>
+        <li><NavLink to={'/'}>Home</NavLink></li>
     </>
     return (
         <div className="navbar bg-base-100">
@@ -34,7 +69,10 @@ const Navbar = () => {
                         {links}
                     </ul>
                 </div>
-                <a className="btn btn-ghost text-xl">daisyUI</a>
+                <a className="btn btn-ghost text-xl">
+                    <img className='w-12' src={jobsIcon} alt="" />
+                    <h2 className='text-xl md:text-2xl lg:text-3xl font-semibold'>Job Portal</h2>
+                </a>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
@@ -68,6 +106,7 @@ const Navbar = () => {
                                         <p className="text-sm mb-3">{user.email}</p>
                                         <button
                                             className="btn btn-sm btn-primary"
+                                            onClick={handleSignOut}
                                         >
                                             Logout
                                         </button>

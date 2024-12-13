@@ -3,11 +3,14 @@ import React, { useContext, useState } from 'react';
 import lottieLogin from '../assets/lottie-files/LoginAnimation.json'
 import Loading from '../component/Shared/Loading';
 import AuthContext from '../context/authcontext/AuthContext';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 const Signin = () => {
     const { signInUser } = useContext(AuthContext)
     const [passError, setPassError] = useState('');
     const [loading, setLoading] = useState(false);
+    const naviagate = useNavigate();
 
     const handlSignIn = async (e) => {
         e.preventDefault();
@@ -16,15 +19,26 @@ const Signin = () => {
         const password = form.password.value;
 
         signInUser(email, password)
-        .then(result=>{
-            console.log(result.user,'signed in')
-        })
-        .catch(error=>{
-            console.log(error,'opps an error')
-        })
+            .then(result => {
+                console.log(result.user, 'signed in')
+                Swal.fire({
+                    title: "Login Successfull!",
+                    text: "You're successfully logged in.",
+                    icon: "success"
+                });
+                naviagate('/')
+            })
+            .catch(error => {
+                Swal.fire({
+                    title: "Error!",
+                    text: `${error.message}`,
+                    icon: "error"
+                });
+                console.log(error, 'opps an error')
+            })
 
         const registerInfo = {
-             email
+            email
         }
         console.log(registerInfo, password)
 
