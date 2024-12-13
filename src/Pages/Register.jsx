@@ -1,21 +1,41 @@
 import Lottie from 'lottie-react';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import lottieRegister from '../assets/lottie-files/RegisterAnimation.json'
+import AuthContext from '../context/authcontext/AuthContext';
+import Loading from '../component/Shared/Loading';
 const Register = () => {
-    const [passError, setPassError] = useState('')
-    const handlRegister = e => {
+    const { createUser } = useContext(AuthContext);
+    const [ loading, setLoading] = useState(false)
+    const [passError, setPassError] = useState('');
+    const handlRegister = async (e) => {
         e.preventDefault();
         const form = e.target;
+        const name = form.name.value;
+        const photo = form.photo.value;
         const email = form.email.value;
         const password = form.password.value;
+
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
         if (!passwordRegex.test(password)) {
             return setPassError('Password must be at least 6charecter longer, one uppercase and one lowercase')
-        }else{setPassError('')}
+        } else { setPassError('') }
+
         const registerInfo = {
-            email, password
+            name, photo, email
         }
         console.log(registerInfo)
+
+        try {
+            await createUser(email, password)
+            .then(result=>{
+                console.log(result)
+            })
+            setLoading(false)
+        } catch (error) {
+            console.log(error, "User creating error")
+            setLoading(false)
+        }
+
     }
     return (
         <div className="hero bg-base-200 min-h-screen">
@@ -26,6 +46,18 @@ const Register = () => {
                 <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
                     <form onSubmit={handlRegister} className="card-body">
                         <h1 className=" text-5xl font-bold">Register now!</h1>
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text">Name</span>
+                            </label>
+                            <input type="text" name='name' placeholder="Full Name" className="input input-bordered" required />
+                        </div>
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text">Photo URL</span>
+                            </label>
+                            <input type="text" name='photo' placeholder="Photo URL" className="input input-bordered" required />
+                        </div>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Email</span>
@@ -43,7 +75,13 @@ const Register = () => {
                         </div>
                         {passError && <p className='text-sm text-red-500'>{passError}</p>}
                         <div className="form-control mt-6">
-                            <button className="btn btn-primary">Login</button>
+                            <button className="btn btn-primary">
+                                {loading ? (
+                                    <Loading />
+                                ) : (
+                                    "Register"
+                                )}
+                            </button>
                         </div>
                     </form>
                 </div>
