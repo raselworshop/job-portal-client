@@ -3,10 +3,14 @@ import React, { useContext, useState } from 'react';
 import lottieRegister from '../assets/lottie-files/RegisterAnimation.json'
 import AuthContext from '../context/authcontext/AuthContext';
 import Loading from '../component/Shared/Loading';
+import SocialLogin from '../component/Shared/SocialLogin';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 const Register = () => {
     const { createUser } = useContext(AuthContext);
-    const [ loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false)
     const [passError, setPassError] = useState('');
+    const navigate = useNavigate();
 
     const handlRegister = async (e) => {
         e.preventDefault();
@@ -28,11 +32,24 @@ const Register = () => {
 
         try {
             await createUser(email, password)
-            .then(result=>{
-                console.log(result)
-            })
+                .then(result => {
+                    if (result.user.email) {
+                        Swal.fire({
+                            title: "Login Successfull!",
+                            text: "You're successfully logged in.",
+                            icon: "success"
+                        });
+                        navigate('/')
+                    }
+                    console.log(result)
+                })
             setLoading(false)
         } catch (error) {
+            Swal.fire({
+                title: "Error!",
+                text: `${error.message}`,
+                icon: "error"
+            });
             console.log(error, "User creating error")
             setLoading(false)
         }
@@ -70,7 +87,7 @@ const Register = () => {
                                 <span className="label-text">Password</span>
                             </label>
                             <input type="password" name='password' placeholder="password" className="input input-bordered" required />
-                            
+
                         </div>
                         {passError && <p className='text-sm text-red-500'>{passError}</p>}
                         <div className="form-control mt-6">
@@ -83,6 +100,7 @@ const Register = () => {
                             </button>
                         </div>
                     </form>
+                    <SocialLogin />
                 </div>
             </div>
         </div>

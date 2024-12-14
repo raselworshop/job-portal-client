@@ -5,6 +5,7 @@ import Loading from '../component/Shared/Loading';
 import AuthContext from '../context/authcontext/AuthContext';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
+import SocialLogin from '../component/Shared/SocialLogin';
 
 const Signin = () => {
     const { signInUser } = useContext(AuthContext)
@@ -21,12 +22,14 @@ const Signin = () => {
         signInUser(email, password)
             .then(result => {
                 console.log(result.user, 'signed in')
-                Swal.fire({
-                    title: "Login Successfull!",
-                    text: "You're successfully logged in.",
-                    icon: "success"
-                });
-                naviagate('/')
+                if(result.user.email){
+                    Swal.fire({
+                        title: "Login Successfull!",
+                        text: "You're successfully logged in.",
+                        icon: "success"
+                    });
+                    naviagate('/')
+                }
             })
             .catch(error => {
                 Swal.fire({
@@ -80,6 +83,7 @@ const Signin = () => {
                             </button>
                         </div>
                     </form>
+                    <SocialLogin/>
                 </div>
             </div>
         </div>

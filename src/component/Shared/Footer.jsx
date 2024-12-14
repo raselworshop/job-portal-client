@@ -33,7 +33,7 @@ const Footer = () => {
                     <a className="link link-hover">Cookie policy</a>
                 </nav>
             </footer>
-            <div className="grid grid-flow-col items-center justify-center gap-4 my-6">
+            <div className="max-w-60 mx-auto grid grid-flow-col items-center justify-center gap-4 my-6">
                 <a href="https://facebook.com" className="link link-hover">Facebook</a>
                 <a href="https://twitter.com" className="link link-hover">Twitter</a>
                 <a href="https://github.com" className="link link-hover">GitHub</a>
