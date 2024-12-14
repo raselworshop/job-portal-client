@@ -81,10 +81,10 @@ const Navbar = () => {
             </div>
             <div className="navbar-end">
                 {user ? (
-                    <div className="relative flex items-center space-x-3">
+                    <div className="relative group flex items-center space-x-3">
                         {/* Profile Image */}
                         <div
-                            className="w-12 h-12 rounded-full border border-gray-300 overflow-hidden cursor-pointer hover:ring-2 hover:ring-primary"
+                            className="relative w-12 h-12 rounded-full border border-gray-300 overflow-hidden cursor-pointer hover:ring-2 hover:ring-primary"
                             onMouseEnter={handleMouseEnter}
                             onMouseLeave={handleMouseLeave}>
                             <img
@@ -96,14 +96,14 @@ const Navbar = () => {
                         {/* Hover Info */}
                         {isHover && (
                             <div
-                                className="absolute right-0 mt-10 w-56 rounded-md bg-gray-700 p-3 text-white shadow-lg transition-opacity duration-300 ease-in-out"
+                                className="absolute right-0 mt-6 w-60 rounded-md bg-gray-700 p-5 text-white shadow-lg transition-opacity duration-300 ease-in-out hidden group-hover:block"
                                 onMouseEnter={handleMouseEnter}
                                 onMouseLeave={handleMouseLeave}
                             >
                                 <div className='flex justify-center items-center gap-3'>
                                     <div>
-                                        <p className="font-bold mb-3">{user.name || user.displayName || "Anonymous"}</p>
-                                        <p className="text-sm mb-3">{user.email}</p>
+                                        <p className="font-bold mb-1">{user.name || user.displayName || "Anonymous"}</p>
+                                        <p className="text-sm mb-1">{user.email || "anonymous@gmail.com"}</p>
                                         <button
                                             className="btn btn-sm btn-primary"
                                             onClick={handleSignOut}
