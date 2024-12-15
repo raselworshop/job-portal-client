@@ -4,7 +4,7 @@ import lottieLogin from '../assets/lottie-files/LoginAnimation.json'
 import Loading from '../component/Shared/Loading';
 import AuthContext from '../context/authcontext/AuthContext';
 import Swal from 'sweetalert2';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import SocialLogin from '../component/Shared/SocialLogin';
 
 const Signin = () => {
@@ -12,6 +12,10 @@ const Signin = () => {
     const [passError, setPassError] = useState('');
     const [loading, setLoading] = useState(false);
     const naviagate = useNavigate();
+    const location = useLocation();
+
+    const from = location.state || '/';
+
 
     const handlSignIn = async (e) => {
         e.preventDefault();
@@ -28,7 +32,7 @@ const Signin = () => {
                         text: "You're successfully logged in.",
                         icon: "success"
                     });
-                    naviagate('/')
+                    naviagate(from)
                 }
             })
             .catch(error => {

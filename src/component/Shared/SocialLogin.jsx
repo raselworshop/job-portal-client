@@ -8,6 +8,9 @@ const SocialLogin = () => {
     const { signinWithGoogle } = useContext(AuthContext);
     const location = useLocation();
     const navigate = useNavigate();
+
+    const from = location.state || '/';
+
     const handleGooleLogin = () => {
         signinWithGoogle()
             .then(result => {
@@ -17,7 +20,7 @@ const SocialLogin = () => {
                         text: "You're successfully logged in.",
                         icon: "success"
                     });
-                    navigate('/')
+                    navigate(from)
                 }
                 console.log(result.user, "this is popup result")
             })

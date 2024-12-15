@@ -5,12 +5,15 @@ import AuthContext from '../context/authcontext/AuthContext';
 import Loading from '../component/Shared/Loading';
 import SocialLogin from '../component/Shared/SocialLogin';
 import Swal from 'sweetalert2';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 const Register = () => {
     const { createUser } = useContext(AuthContext);
     const [loading, setLoading] = useState(false)
     const [passError, setPassError] = useState('');
+    const location = useLocation();
     const navigate = useNavigate();
+
+    const from = location.state || '/';
 
     const handlRegister = async (e) => {
         e.preventDefault();
@@ -39,7 +42,7 @@ const Register = () => {
                             text: "You're successfully logged in.",
                             icon: "success"
                         });
-                        navigate('/')
+                        navigate(from)
                     }
                     console.log(result)
                 })
