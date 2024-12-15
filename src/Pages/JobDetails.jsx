@@ -17,7 +17,7 @@ const JobDetails = () => {
             <EmploymentInformation/>
            </section>
            <section className="mb-10">
-            <JobDetailsContent/>
+            <JobDetailsContent job={job}/>
            </section>
         </div>
     );

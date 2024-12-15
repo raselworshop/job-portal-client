@@ -1,7 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import 'tailwindcss/tailwind.css';
 
-const JobDetailsContent = () => {
+const JobDetailsContent = ({job}) => {
+    const {_id} = job;
     return (
         <div className="">
             <div className="p-4 bg-white shadow-md rounded-lg mb-4">
@@ -64,7 +66,9 @@ const JobDetailsContent = () => {
                 </div>
                 <div className="flex flex-row-reverse space-x-2 gap-2">
                     <button className="btn btn-secondary">Save Job</button>
-                    <button className="btn btn-primary">Apply Now</button>
+                    <Link to={`/jobApply/${_id}`}>
+                        <button className="btn btn-primary">Apply Now</button>
+                    </Link>
                 </div>
             </div>
         </div>
