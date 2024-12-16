@@ -48,7 +48,7 @@ const MyPostedJobs = () => {
                                 <td>{job.applicationDeadline}</td>
                                 <td>{job.appliactionCount}</td>
                                 <td>
-                                    <Link to={`/viewApplications/${job._id}`}>
+                                    <Link to={`/recruiter/view-applications/${job._id}`}>
                                         <button className='btn btn-link'>View Applications</button>
                                     </Link>
                                 </td>
