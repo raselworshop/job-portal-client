@@ -1,19 +1,72 @@
 import React from 'react';
 import useAuth from '../Hooks/UseAuth';
+import Swal from 'sweetalert2';
 
 const AddJob = () => {
-    const {user} = useAuth();
-    const handleAddJob=async (e) => {
+    const { user } = useAuth();
+    const handleAddJob = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target)
         // console.log(formData)
         const initData = Object.fromEntries(formData.entries());
-        console.log(initData)
-        const {min, max, currency, ...newJob} = initData;
+        // console.log(initData)
+        const { min, max, currency, ...newJob } = initData;
         console.log(newJob)
-        newJob.salaryRange = {min, max, currency}
+        newJob.salaryRange = { min, max, currency }
+        newJob.requirements = newJob.requirements.split('\n');
+        newJob.responsibilities = newJob.responsibilities.split('\n')
         console.log(newJob)
 
+        const result = await Swal.fire({
+            title: "Confirm Save?",
+            text: "Are you sure you want to add this job?",
+            icon: "question",
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: "Save",
+            denyButtonText: `Don't save`
+        })
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+            try {
+                Swal.fire({
+                    title: "Saving...",
+                    text: "Please wait while we save the job data.",
+                    icon: "info",
+                    showConfirmButton: false,
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                });
+
+                const response = await fetch('http://localhost:3000/apis/jobs', {
+                    method: "POST",
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(newJob)
+                });
+
+                const data = await response.json();
+                if (data.insertedId) {
+                    Swal.close();
+                    await Swal.fire(
+                        "Saved!",
+                        "The job has been added successfully.",
+                        "success"
+                    );
+                    e.target.reset();
+                }else{
+                    throw new Error("Failed to save the job. Please try again.");
+                }
+                console.log(data)
+            } catch (error) {
+                Swal.close()
+                console.error("Error adding job:", error);
+                await Swal.fire("Error!", "Failed to add the job. Please try again later.", "error");
+            }
+        } else if (result.isDenied) {
+            Swal.fire("Changes are not saved", "", "info");
+        }
     }
     return (
         <div>
