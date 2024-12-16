@@ -1,9 +1,11 @@
 import React from 'react';
 import useAuth from '../Hooks/UseAuth';
 import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 const AddJob = () => {
     const { user } = useAuth();
+    const navigate = useNavigate();
     const handleAddJob = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target)
@@ -55,6 +57,7 @@ const AddJob = () => {
                         "success"
                     );
                     e.target.reset();
+                    navigate('recruiter/posted-job')
                 }else{
                     throw new Error("Failed to save the job. Please try again.");
                 }
