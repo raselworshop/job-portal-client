@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import useAuth from '../Hooks/UseAuth';
 import Loading from '../component/Shared/Loading';
 import axios from 'axios';
+import useAxiosSecure from '../Hooks/useAxiosSecure';
 
 const MyApplication = () => {
     const { user, loading, setLoading } = useAuth();
     const [jobs, setJobs] = useState([]);
     const [error, setError] = useState(null);
+    const secureAxios = useAxiosSecure();
 
 
     useEffect(() => {
@@ -14,8 +16,12 @@ const MyApplication = () => {
             try {
                 setLoading(true)
                 // const response = await fetch(`http://localhost:3000/user/job-application?email=${user?.email}`)
-                const response =await axios.get(`http://localhost:3000/user/job-application?email=${user?.email}`, {withCredentials:true})
-                setJobs(response.data)
+                // const response =await axios.get(`http://localhost:3000/user/job-application?email=${user?.email}`, {withCredentials:true})
+                secureAxios.get(`/user/job-application?email=${user?.email}`)
+                .then(response=>{
+                    setJobs(response.data)
+                })
+                // setJobs(response.data)
                 // if (response.ok) {
                 //     const data = await response.json();
                 //     setJobs(response.data)
