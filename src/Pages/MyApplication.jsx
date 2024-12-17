@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import useAuth from '../Hooks/UseAuth';
 import Loading from '../component/Shared/Loading';
+import axios from 'axios';
 
 const MyApplication = () => {
     const { user, loading, setLoading } = useAuth();
@@ -12,13 +13,15 @@ const MyApplication = () => {
         const fetchMyApp = async () => {
             try {
                 setLoading(true)
-                const response = await fetch(`http://localhost:3000/user/job-application?email=${user?.email}`)
-                if (response.ok) {
-                    const data = await response.json();
-                    setJobs(data)
-                } else {
-                    throw new Error('Failed to fetch job applications');
-                }
+                // const response = await fetch(`http://localhost:3000/user/job-application?email=${user?.email}`)
+                const response =await axios.get(`http://localhost:3000/user/job-application?email=${user?.email}`, {withCredentials:true})
+                setJobs(response.data)
+                // if (response.ok) {
+                //     const data = await response.json();
+                //     setJobs(response.data)
+                // } else {
+                //     throw new Error('Failed to fetch job applications');
+                // }
             } catch (error) {
                 setError(error.message);
             } finally {
