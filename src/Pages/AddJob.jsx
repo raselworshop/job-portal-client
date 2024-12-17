@@ -13,11 +13,11 @@ const AddJob = () => {
         const initData = Object.fromEntries(formData.entries());
         // console.log(initData)
         const { min, max, currency, ...newJob } = initData;
-        console.log(newJob)
+        // console.log(newJob)
         newJob.salaryRange = { min, max, currency }
         newJob.requirements = newJob.requirements.split('\n');
         newJob.responsibilities = newJob.responsibilities.split('\n')
-        console.log(newJob)
+        // console.log(newJob)
 
         const result = await Swal.fire({
             title: "Confirm Save?",
@@ -40,7 +40,7 @@ const AddJob = () => {
                     allowEscapeKey: false,
                 });
 
-                const response = await fetch('http://localhost:3000/apis/jobs', {
+                const response = await fetch('https://job-portal-server-jet-six.vercel.app/apis/jobs', {
                     method: "POST",
                     headers: {
                         'content-type': 'application/json'
@@ -61,10 +61,10 @@ const AddJob = () => {
                 }else{
                     throw new Error("Failed to save the job. Please try again.");
                 }
-                console.log(data)
+                // console.log(data)
             } catch (error) {
                 Swal.close()
-                console.error("Error adding job:", error);
+                // console.error("Error adding job:", error);
                 await Swal.fire("Error!", "Failed to add the job. Please try again later.", "error");
             }
         } else if (result.isDenied) {

@@ -4,7 +4,7 @@ import useAuth from './UseAuth';
 import { useNavigate } from 'react-router-dom';
 
 const instanceAxios = axios.create({
-    baseURL: "http://localhost:3000",
+    baseURL: "https://job-portal-server-jet-six.vercel.app",
     withCredentials: true,
 });
 const useAxiosSecure = () => {
@@ -15,16 +15,16 @@ const useAxiosSecure = () => {
         instanceAxios.interceptors.response.use(response => {
             return response;
         }, error => {
-            console.log('error caught in interceptor', error)
+            // console.log('error caught in interceptor', error)
             if (error.status === 401 || error.status === 403) {
-                console.log('need to log out the user')
+                // console.log('need to log out the user')
                 signOutUser()
                 .then(()=>{
-                    console.log('logout user')
+                    // console.log('logout user')
                     navigate('/signin')
                 })
                 .catch(error=>{
-                    console.log(error)
+                    // console.log(error)
                 })
             }
             return Promise.reject(error)

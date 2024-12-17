@@ -11,15 +11,15 @@ const HotJobs = () => {
         const fetchJobs = async () => {
             try {
                 setLoading(true)
-                const response = await fetch('http://localhost:3000/jobs');
+                const response = await fetch('https://job-portal-server-jet-six.vercel.app/jobs');
                 if (!response.ok) {
                     throw new Error(`HTTP Error: ${response.status}`);
                 }
                 const jobsData = await response.json();
-                console.log(jobsData)
+                // console.log(jobsData)
                 setJobs(jobsData)
             } catch (error) {
-                console.log('error fetching jobs', error.message)
+                // console.log('error fetching jobs', error.message)
             }finally{
                 setLoading(false)
             }

@@ -10,10 +10,10 @@ const ViewApplications = () => {
         const data = {
             status: e.target.value,
         }
-        console.log(e.target.value, id)
+        // console.log(e.target.value, id)
 
         try {
-            const response = await fetch(`http://localhost:3000/recruiter/view-applications/set-status/${id}`, {
+            const response = await fetch(`https://job-portal-server-jet-six.vercel.app/recruiter/view-applications/set-status/${id}`, {
                 method: "PATCH",
                 headers: {
                     'content-type': 'application/json'
@@ -35,12 +35,12 @@ const ViewApplications = () => {
                         app._id === id ? { ...app, status: e.target.value } : app
                     )
                 );
-                console.log("Status update successful:", pData);
+                // console.log("Status update successful:", pData);
             } else {
-                console.error("Failed to update status:", response.statusText);
+                // console.error("Failed to update status:", response.statusText);
             }
         } catch (error) {
-            console.error('An error occurred while updating the status:', error);
+            // console.error('An error occurred while updating the status:', error);
         }
     }
     return (

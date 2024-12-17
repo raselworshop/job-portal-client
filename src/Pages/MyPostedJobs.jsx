@@ -9,16 +9,16 @@ const MyPostedJobs = () => {
     useEffect(() => {
         const fetchDataByEmail = async () => {
             try {
-                const response = await fetch(`http://localhost:3000/jobs?email=${user?.email}`);
+                const response = await fetch(`https://job-portal-server-jet-six.vercel.app/jobs?email=${user?.email}`);
                 if (response.ok) {
                     const data = await response.json();
-                    console.log(data);
+                    // console.log(data);
                     setJobs(data)
                 } else {
-                    console.error("Failed to fetch data");
+                    // console.error("Failed to fetch data");
                 }
             } catch (error) {
-                console.error("Error:", error);
+                // console.error("Error:", error);
             }
         };
         if (user?.email) {

@@ -15,8 +15,8 @@ const MyApplication = () => {
         const fetchMyApp = async () => {
             try {
                 setLoading(true)
-                // const response = await fetch(`http://localhost:3000/user/job-application?email=${user?.email}`)
-                // const response =await axios.get(`http://localhost:3000/user/job-application?email=${user?.email}`, {withCredentials:true})
+                // const response = await fetch(`https://job-portal-server-jet-six.vercel.app/user/job-application?email=${user?.email}`)
+                // const response =await axios.get(`https://job-portal-server-jet-six.vercel.app/user/job-application?email=${user?.email}`, {withCredentials:true})
                 secureAxios.get(`/user/job-application?email=${user?.email}`)
                 .then(response=>{
                     setJobs(response.data)

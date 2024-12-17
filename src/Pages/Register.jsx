@@ -31,7 +31,7 @@ const Register = () => {
         const registerInfo = {
             name, photo, email
         }
-        console.log(registerInfo)
+        // console.log(registerInfo)
 
         try {
             await createUser(email, password)
@@ -44,7 +44,7 @@ const Register = () => {
                         });
                         navigate(from)
                     }
-                    console.log(result)
+                    // console.log(result)
                 })
             setLoading(false)
         } catch (error) {
@@ -53,7 +53,7 @@ const Register = () => {
                 text: `${error.message}`,
                 icon: "error"
             });
-            console.log(error, "User creating error")
+            // console.log(error, "User creating error")
             setLoading(false)
         }
 

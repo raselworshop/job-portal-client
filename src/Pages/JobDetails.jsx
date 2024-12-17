@@ -6,7 +6,7 @@ import JobDetailsContent from '../component/common/Job-details/DetailsContent';
 
 const JobDetails = () => {
     const job = useLoaderData();
-    console.log(job)
+    // console.log(job)
 
     return (
         <div className="container mx-auto p-4">

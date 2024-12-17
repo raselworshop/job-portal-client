@@ -26,11 +26,11 @@ const Signin = () => {
 
         signInUser(email, password)
             .then(result => {
-                console.log(result.user, 'signed in')
+                // console.log(result.user, 'signed in')
                 const user = {email: email}
-                axios.post('http://localhost:3000/user/jwt', user, {withCredentials:true})
+                axios.post('https://job-portal-server-jet-six.vercel.app/user/jwt', user, {withCredentials:true})
                 .then(res=>{
-                    console.log(res.data)
+                    // console.log(res.data)
                 })
                 if(result.user.email){
                     Swal.fire({
@@ -47,13 +47,13 @@ const Signin = () => {
                     text: `${error.message}`,
                     icon: "error"
                 });
-                console.log(error, 'opps an error')
+                // console.log(error, 'opps an error')
             })
 
         const registerInfo = {
             email
         }
-        console.log(registerInfo, password)
+        // console.log(registerInfo, password)
 
 
     }

@@ -7,7 +7,7 @@ const JobApply = () => {
     const { id } = useParams();
     const { user } = useAuth();
     const navigate = useNavigate();
-    console.log(id, user)
+    // console.log(id, user)
 
     const submitJobApplication = async (e) => {
         e.preventDefault();
@@ -15,7 +15,7 @@ const JobApply = () => {
         const linkedIn = form.linkedIn.value;
         const github = form.github.value;
         const resume = form.resume.value;
-        console.log(linkedIn, github, resume, 'job applied')
+        // console.log(linkedIn, github, resume, 'job applied')
 
 
         const jobApplication = {
@@ -26,7 +26,7 @@ const JobApply = () => {
             resume,
         }
         try {
-            const response = await fetch('http://localhost:3000/job-applications', {
+            const response = await fetch('https://job-portal-server-jet-six.vercel.app/job-applications', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'
@@ -41,14 +41,14 @@ const JobApply = () => {
                     icon: "success"
                 });
                 navigate('/myApplications')
-                console.log("Job application submitted successfully", result);
+                // console.log("Job application submitted successfully", result);
             } else {
                 Swal.fire({
                     title: "Error!",
                     text: `${result.message}`,
                     icon: "error"
                 });
-                console.error("Error submitting job application", result.message);
+                // console.error("Error submitting job application", result.message);
             }
         } catch (error) {
             Swal.fire({
@@ -56,7 +56,7 @@ const JobApply = () => {
                 text: `${error.message}`,
                 icon: "error"
             });
-            console.error('An error occurred while submitting the job application:', error);
+            // console.error('An error occurred while submitting the job application:', error);
         }
     }
     return (

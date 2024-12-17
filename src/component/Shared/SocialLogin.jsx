@@ -22,7 +22,7 @@ const SocialLogin = () => {
                     });
                     navigate(from)
                 }
-                console.log(result.user, "this is popup result")
+                // console.log(result.user, "this is popup result")
             })
             .catch(error => {
                 Swal.fire({
@@ -30,7 +30,7 @@ const SocialLogin = () => {
                     text: `${error.message}`,
                     icon: "error"
                 });
-                console.log(error, "error happpend")
+                // console.log(error, "error happpend")
             })
     }
     return (
