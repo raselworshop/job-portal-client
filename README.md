@@ -2,7 +2,7 @@
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-live link : https://job-portal-63338.web.app/
+live link : https://job-portal-63338.web.app
 
 Currently, two official plugins are available:
 

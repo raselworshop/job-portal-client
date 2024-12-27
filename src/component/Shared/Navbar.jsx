@@ -43,6 +43,7 @@ const Navbar = () => {
     }
     const links = <>
         <li><NavLink to={'/'}>Home</NavLink></li>
+        <li><NavLink to={'/all-jobs'}>All Jobs</NavLink></li>
         <li><NavLink to={'/myApplications'}>My Application</NavLink></li>
         <li><NavLink to={'/recruiter/add-job'}>Add Job</NavLink></li>
         <li><NavLink to={'/recruiter/posted-job'}>Posted Job</NavLink></li>
